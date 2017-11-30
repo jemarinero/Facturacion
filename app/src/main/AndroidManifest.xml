@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uth.facturacion">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ConfiguracionActivity"
+            android:label="@string/title_activity_configuracion"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EmpresaActivity"
+            android:label="@string/title_activity_empresa"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ListClienteActivity"
+            android:label="@string/title_activity_cliente"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ClienteActivity"
+            android:label="Nuevo Cliente"
+            android:parentActivityName=".ListClienteActivity" />
+        <activity
+            android:name=".MapClienteActivity"
+            android:label="@string/title_activity_map_cliente"
+            android:parentActivityName=".MapClienteActivity" />
+        <activity
+            android:name=".ListServiciosActivity"
+            android:label="@string/title_activity_list_servicios"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ServicioActivity"
+            android:label="@string/title_activity_servicio"
+            android:parentActivityName=".ListServiciosActivity" ></activity>
+    </application>
+
+</manifest>

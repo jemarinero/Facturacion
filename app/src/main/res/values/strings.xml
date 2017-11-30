@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PVHMóvil</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_empresa">Empresa</string>
+    <string name="config_url">URL Del Servidor de Web Services</string>
+    <string name="empresa_nombre">Nombre de la Empresa</string>
+    <string name="google_android_map_api_key">AIzaSyB59b7H4qxCW9BRK-FxcTNnDOU07U8VEDo</string>
+    <string name="title_activity_cliente">Clientes</string>
+    <string name="title_activity_configuracion">Configuración</string>
+    <string name="title_activity_map_cliente">Mapa del Cliente</string>
+    <string name="title_activity_list_servicios">Servicios</string>
+    <string name="title_activity_servicio">Servicio</string>
+</resources>

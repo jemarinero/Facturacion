@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_recibos"
+            android:icon="@drawable/ic_money"
+            android:title="Facturación" />
+
+
+    </group>
+
+    <item android:title="Catálogos">
+        <menu>
+            <item
+                android:id="@+id/nav_clientes"
+                android:icon="@drawable/ic_perm_contact"
+                android:title="Clientes" />
+            <item
+                android:id="@+id/nav_servicios"
+                android:icon="@drawable/ic_servicios"
+                android:title="Servicios" />
+            <item
+                android:id="@+id/nav_numeradores"
+                android:icon="@drawable/ic_numeradores"
+                android:title="Numeradores" />
+        </menu>
+    </item>>
+
+   <item android:title="Configuraciones">
+        <menu>
+            <item
+                android:id="@+id/nav_configuracion"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="Configuración" />
+            <item
+                android:id="@+id/nav_empresa"
+                android:icon="@drawable/ic_business"
+                android:title="Empresa" />
+        </menu>
+    </item>>
+
+</menu>
