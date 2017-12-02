@@ -14,4 +14,6 @@
     <string name="title_activity_map_cliente">Mapa del Cliente</string>
     <string name="title_activity_list_servicios">Servicios</string>
     <string name="title_activity_servicio">Servicio</string>
+    <string name="title_activity_list_numeradores">Numeradores</string>
+    <string name="title_activity_numerador">Numerador</string>
 </resources>

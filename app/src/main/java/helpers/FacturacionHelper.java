@@ -160,6 +160,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                 clie.NOMBRE+" text null, "+
                 clie.DIRECCION+" text null, "+
                 clie.TELEFONO+" text null, "+
+                clie.CORREO+" text null, "+
                 clie.IDENTIDAD+" text null, "+
                 clie.RTN+" text null, "+
                 clie.LATITUD+" text null, "+
@@ -172,12 +173,13 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+clie.TABLE);
     }
 
-    public long insertCliente(String nombre, String direccion, String telefono, String identidad, String rtn, String latitud, String longitud, String exento){
+    public long insertCliente(String nombre, String direccion, String telefono,String correo, String identidad, String rtn, String latitud, String longitud, String exento){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(clie.NOMBRE, nombre);
         values.put(clie.DIRECCION, direccion);
         values.put(clie.TELEFONO, telefono);
+        values.put(clie.CORREO, correo);
         values.put(clie.IDENTIDAD, identidad);
         values.put(clie.RTN, rtn);
         values.put(clie.LATITUD, latitud);
@@ -197,7 +199,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
 
     public Cursor selectAllCliente(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] cols = new String[] {clie.ID,clie.NOMBRE, clie.DIRECCION,clie.TELEFONO,clie.IDENTIDAD,clie.RTN,clie.LATITUD,clie.LONGITUD,clie.EXENTO_IMPUESTO};
+        String[] cols = new String[] {clie.ID,clie.NOMBRE, clie.DIRECCION,clie.TELEFONO,clie.CORREO,clie.IDENTIDAD,clie.RTN,clie.LATITUD,clie.LONGITUD,clie.EXENTO_IMPUESTO};
         Cursor mCursor = db.query(true, clie.TABLE,cols,null
                 , null, null, null, null, null);
         return mCursor; // iterate to get each value.
@@ -205,18 +207,19 @@ public class FacturacionHelper extends SQLiteOpenHelper {
 
     public Cursor selectCliente(String where, String[] params){
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] cols = new String[] {clie.ID,clie.NOMBRE, clie.DIRECCION,clie.TELEFONO,clie.IDENTIDAD,clie.RTN,clie.LATITUD,clie.LONGITUD,clie.EXENTO_IMPUESTO};
+        String[] cols = new String[] {clie.ID,clie.NOMBRE, clie.DIRECCION,clie.TELEFONO,clie.CORREO,clie.IDENTIDAD,clie.RTN,clie.LATITUD,clie.LONGITUD,clie.EXENTO_IMPUESTO};
         Cursor mCursor = db.query(true, clie.TABLE,cols,where
                 , params, null, null, null, null);
         return mCursor; // iterate to get each value.
     }
 
-    public long updateCliente(String nombre, String direccion, String telefono, String identidad, String rtn, String exento,String where, String[] params){
+    public long updateCliente(String nombre, String direccion, String telefono,String correo, String identidad, String rtn, String exento,String where, String[] params){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(clie.NOMBRE, nombre);
         values.put(clie.DIRECCION, direccion);
         values.put(clie.TELEFONO, telefono);
+        values.put(clie.CORREO, correo);
         values.put(clie.IDENTIDAD, identidad);
         values.put(clie.RTN, rtn);
         values.put(clie.EXENTO_IMPUESTO, exento);
@@ -248,7 +251,8 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                 num.FECHA_INICIO+" text null, "+
                 num.FECHA_FIN+" text null, "+
                 num.CAI+" text null, "+
-                num.ULTIMO_USADO+" integer null "+
+                num.ULTIMO_USADO+" integer null, "+
+                num.ESTADO+" integer null "+
                 ")";
         db.execSQL(query);
     }
@@ -256,6 +260,62 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+num.TABLE);
     }
 
+    public long insertNumerador(String numerador, String serie, String numeroInicio, String numeroFin, String fechaInicio, String fechaFin, String cai, String ultimo,String estado){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(num.NUMERADOR, numerador);
+        values.put(num.SERIE, serie);
+        values.put(num.NUMERO_INICIO, numeroInicio);
+        values.put(num.NUMERO_FIN, numeroFin);
+        values.put(num.FECHA_INICIO, fechaInicio);
+        values.put(num.FECHA_FIN, fechaFin);
+        values.put(num.CAI, cai);
+        values.put(num.ULTIMO_USADO, ultimo);
+        values.put(num.ESTADO, estado);
+        return db.insert(num.TABLE, null, values);
+    }
+    public int deleteAllNumeradores(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(num.TABLE,null,null);
+    }
+
+    public int deleteNumerador(String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(num.TABLE,where,params);
+    }
+
+    public Cursor selectAllNumeradores(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] cols = new String[] {num.ID,num.NUMERADOR, num.SERIE,num.NUMERO_INICIO,num.NUMERO_FIN,num.FECHA_INICIO,num.FECHA_FIN,num.CAI,num.ULTIMO_USADO,num.ESTADO};
+        Cursor mCursor = db.query(true, num.TABLE,cols,null
+                , null, null, null, null, null);
+        return mCursor; // iterate to get each value.
+    }
+
+    public Cursor selectNumerador(String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] cols = new String[] {num.ID,num.NUMERADOR, num.SERIE,num.NUMERO_INICIO,num.NUMERO_FIN,num.FECHA_INICIO,num.FECHA_FIN,num.CAI,num.ULTIMO_USADO,num.ESTADO};
+        Cursor mCursor = db.query(true, num.TABLE,cols,where
+                , params, null, null, null, null);
+        return mCursor; // iterate to get each value.
+    }
+
+    public long updateNumerador(String numerador, String serie, String numeroInicio, String numeroFin, String fechaInicio, String fechaFin, String cai, String ultimo,String estado,String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(num.NUMERADOR, numerador);
+        values.put(num.SERIE, serie);
+        values.put(num.NUMERO_INICIO, numeroInicio);
+        values.put(num.NUMERO_FIN, numeroFin);
+        values.put(num.FECHA_INICIO, fechaInicio);
+        values.put(num.FECHA_FIN, fechaFin);
+        values.put(num.CAI, cai);
+        values.put(num.ULTIMO_USADO, ultimo);
+        values.put(num.ESTADO, estado);
+
+        return db.update(num.TABLE,values,where,params);
+
+    }
 
     //=================================================
     //Servicios

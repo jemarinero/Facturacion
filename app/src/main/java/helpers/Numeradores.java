@@ -15,5 +15,6 @@ public class Numeradores {
     public static final String FECHA_FIN = "FechaFin";
     public static final String CAI = "CAI";
     public static final String ULTIMO_USADO = "UltimoUsado";
+    public static final String ESTADO = "Estado";
 
 }

@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_servicios:     Intent servicio = new Intent(this,ListServiciosActivity.class);
                                          startActivity(servicio);
                                          break;
+            case R.id.nav_numeradores:   Intent numerador = new Intent(this,ListNumeradoresActivity.class);
+                                         startActivity(numerador);
+                                         break;
                 default: break;
         }
 

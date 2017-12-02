@@ -39,6 +39,7 @@ public class ClienteActivity extends AppCompatActivity {
     EditText txtNombreCliente;
     EditText txtDireccion;
     EditText txtTelefono;
+    EditText txtCorreo;
     EditText txtIdentidad;
     EditText txtRtn;
     CheckBox chkExento;
@@ -66,6 +67,7 @@ public class ClienteActivity extends AppCompatActivity {
         txtNombreCliente = (EditText) findViewById(R.id.txtNombreCliente);
         txtDireccion = (EditText) findViewById(R.id.txtDireccion);
         txtTelefono = (EditText) findViewById(R.id.txtTelefono);
+        txtCorreo = (EditText) findViewById(R.id.txtCorreo);
         txtIdentidad = (EditText) findViewById(R.id.txtIdentidad);
         txtRtn = (EditText) findViewById(R.id.txtRtn);
         chkExento = (CheckBox) findViewById(R.id.chkExento);
@@ -91,6 +93,7 @@ public class ClienteActivity extends AppCompatActivity {
                             txtNombreCliente.getText().toString(),
                             txtDireccion.getText().toString(),
                             txtTelefono.getText().toString(),
+                            txtCorreo.getText().toString(),
                             txtIdentidad.getText().toString(),
                             txtRtn.getText().toString(),
                             (chkExento.isChecked() ? "1" : "0"),
@@ -111,6 +114,7 @@ public class ClienteActivity extends AppCompatActivity {
                             txtNombreCliente.getText().toString(),
                             txtDireccion.getText().toString(),
                             txtTelefono.getText().toString(),
+                            txtCorreo.getText().toString(),
                             txtIdentidad.getText().toString(),
                             txtRtn.getText().toString(),
                             "",
@@ -190,6 +194,7 @@ public class ClienteActivity extends AppCompatActivity {
                 txtNombreCliente.setText(c.getString(c.getColumnIndex(cliente.NOMBRE)));
                 txtDireccion.setText(c.getString(c.getColumnIndex(cliente.DIRECCION)));
                 txtTelefono.setText(c.getString(c.getColumnIndex(cliente.TELEFONO)));
+                txtCorreo.setText(c.getString(c.getColumnIndex(cliente.CORREO)));
                 txtIdentidad.setText(c.getString(c.getColumnIndex(cliente.IDENTIDAD)));
                 txtRtn.setText(c.getString(c.getColumnIndex(cliente.RTN)));
                 String chk = c.getString(c.getColumnIndex(cliente.EXENTO_IMPUESTO));

@@ -53,7 +53,15 @@
         <activity
             android:name=".ServicioActivity"
             android:label="@string/title_activity_servicio"
-            android:parentActivityName=".ListServiciosActivity" ></activity>
+            android:parentActivityName=".ListServiciosActivity" />
+        <activity
+            android:name=".ListNumeradoresActivity"
+            android:label="@string/title_activity_list_numeradores"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".NumeradorActivity"
+            android:label="@string/title_activity_numerador"
+            android:parentActivityName=".ListNumeradoresActivity"></activity>
     </application>
 
 </manifest>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.uth.facturacion.ClienteActivity"
-    tools:showIn="@layout/activity_cliente"
+    tools:context="com.uth.facturacion.NumeradorActivity"
+    tools:showIn="@layout/activity_numerador"
     >
 
     <android.support.constraint.ConstraintLayout
@@ -15,18 +15,18 @@
         >
 
         <TextView
-            android:id="@+id/tvEmpresa"
+            android:id="@+id/tvNumerador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
-            android:text="Nombre del Cliente"
+            android:text="Numerador"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txtNombreCliente"
+            android:id="@+id/txtNumerador"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginLeft="24dp"
@@ -34,54 +34,108 @@
             android:layout_marginTop="4dp"
             android:background="@android:drawable/editbox_background"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapCharacters"
             android:singleLine="true"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEmpresa" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNumerador" />
 
         <TextView
-            android:id="@+id/tvDireccion"
+            android:id="@+id/tvSerie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
-            android:text="Direccion"
+            android:text="Serie"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNombreCliente" />
+            app:layout_constraintTop_toBottomOf="@+id/txtNumerador" />
+
 
         <EditText
-            android:id="@+id/txtDireccion"
+            android:id="@+id/txtSerie"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="44dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="4dp"
             android:background="@android:drawable/editbox_background"
             android:ems="10"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:singleLine="false"
+            android:inputType="textCapCharacters"
+            android:singleLine="true"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDireccion" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSerie" />
 
         <TextView
-            android:id="@+id/tvTelefono"
+            android:id="@+id/tvNumInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
-            android:text="Teléfono"
+            android:text="Número Inicio"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDireccion" />
+            app:layout_constraintTop_toBottomOf="@+id/txtSerie" />
 
         <EditText
-            android:id="@+id/txtTelefono"
+            android:id="@+id/txtNumInicio"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:inputType="number"
+            android:singleLine="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumInicio" />
+
+        <TextView
+            android:id="@+id/tvNumFin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Número Fin"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNumInicio" />
+
+        <EditText
+            android:id="@+id/txtNumFin"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:inputType="number"
+            android:singleLine="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumFin" />
+
+        <TextView
+            android:id="@+id/tvFechaInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Fecha Inicio"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNumFin" />
+
+        <EditText
+            android:id="@+id/txtFechaInicio"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginLeft="24dp"
@@ -90,24 +144,25 @@
             android:background="@android:drawable/editbox_background"
             android:ems="10"
             android:singleLine="true"
+            android:inputType="date"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTelefono" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFechaInicio" />
 
         <TextView
-            android:id="@+id/tvCorreo"
+            android:id="@+id/tvFechaFin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
-            android:text="Teléfono"
+            android:text="Fecha Fin"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTelefono" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFechaInicio" />
 
         <EditText
-            android:id="@+id/txtCorreo"
+            android:id="@+id/txtFechaFin"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginLeft="24dp"
@@ -116,25 +171,52 @@
             android:background="@android:drawable/editbox_background"
             android:ems="10"
             android:singleLine="true"
-            android:inputType="textEmailAddress"
+            android:inputType="date"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCorreo" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFechaFin" />
 
         <TextView
-            android:id="@+id/tvIdentidad"
+            android:id="@+id/tvCai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
-            android:text="No. Identidad"
+            android:text="CAI"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFechaFin" />
 
         <EditText
-            android:id="@+id/txtIdentidad"
+            android:id="@+id/txtCai"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:inputType="text"
+            android:singleLine="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCai" />
+
+        <TextView
+            android:id="@+id/tvUltimo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Último número usado"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCai" />
+
+        <EditText
+            android:id="@+id/txtUltimo"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginLeft="24dp"
@@ -143,52 +225,23 @@
             android:background="@android:drawable/editbox_background"
             android:ems="10"
             android:singleLine="true"
+            android:inputType="number"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvIdentidad" />
-
-        <TextView
-            android:id="@+id/tvRtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:text="RTN"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtIdentidad" />
-
-        <EditText
-            android:id="@+id/txtRtn"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="0dp"
-            android:background="@android:drawable/editbox_background"
-            android:ems="10"
-            android:singleLine="true"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRtn" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/tvUltimo" />
 
         <CheckBox
-            android:id="@+id/chkExento"
+            android:id="@+id/chkEstado"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Exento Impuesto?"
+            android:text="Estado"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtRtn"
+            app:layout_constraintTop_toBottomOf="@+id/txtUltimo"
             android:layout_marginLeft="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btnSave"
             android:layout_marginRight="8dp"
             app:layout_constraintHorizontal_bias="0.0" />
-
 
         <ImageButton
             android:id="@+id/btnSave"
@@ -200,21 +253,9 @@
             android:text="Guardar"
             android:textColor="@android:color/background_light"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chkExento"
+            app:layout_constraintTop_toBottomOf="@+id/chkEstado"
             app:srcCompat="@android:drawable/ic_menu_save" />
 
-        <ImageButton
-            android:id="@+id/btnMapa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button"
-            android:text="Ver Mapa"
-            android:textColor="@android:color/background_light"
-            app:layout_constraintRight_toLeftOf="@+id/btnSave"
-            app:layout_constraintTop_toBottomOf="@+id/chkExento"
-            app:srcCompat="@android:drawable/ic_dialog_map" />
 
         <ImageButton
             android:id="@+id/btnDelete"
@@ -225,8 +266,8 @@
             android:background="@drawable/button"
             android:text="Borrar"
             android:textColor="@android:color/background_light"
-            app:layout_constraintRight_toLeftOf="@+id/btnMapa"
-            app:layout_constraintTop_toBottomOf="@+id/chkExento"
+            app:layout_constraintRight_toLeftOf="@+id/btnSave"
+            app:layout_constraintTop_toBottomOf="@+id/chkEstado"
             app:srcCompat="@android:drawable/ic_menu_delete" />
 
 
