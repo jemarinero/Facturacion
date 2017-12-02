@@ -7,8 +7,11 @@ import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +22,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Map;
 
 import helpers.Clientes;
 import helpers.FacturacionHelper;
@@ -33,6 +38,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     long idCliente;
     FacturacionHelper helperFacturacion;
     Clientes cliente;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +88,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
                 LocationTrack locationListener = new LocationTrack(getBaseContext());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                        ActivityCompat.requestPermissions(MapClienteActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSIONS);
                     } else {
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationListener);
                         LatLng lat = new LatLng(locationListener.getLatitude(),locationListener.getLongitude());
@@ -131,5 +137,24 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             }
         }
         return new LatLng(0,0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    Toast.makeText(MapClienteActivity.this, "Se otorgaron los permisos", Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(MapClienteActivity.this, "Se negaron los permisos", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

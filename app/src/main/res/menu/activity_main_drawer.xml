@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_recibos"
             android:icon="@drawable/ic_money"
-            android:title="Facturación" />
+            android:title="Recibos" />
 
 
     </group>

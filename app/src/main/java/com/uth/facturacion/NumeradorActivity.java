@@ -73,16 +73,6 @@ public class NumeradorActivity extends AppCompatActivity {
         txtUltimo = (EditText) findViewById(R.id.txtUltimo);
         chkEstado = (CheckBox) findViewById(R.id.chkEstado);
 
-        txtFechaInicio.setInputType(InputType.TYPE_NULL);
-        txtFechaFin.setInputType(InputType.TYPE_NULL);
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date d = new Date();
-        String fecha = simpleDateFormat.format(d);
-        txtFechaInicio.setText(fecha);
-        txtFechaFin.setText(fecha);
-
         //listeners
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +198,7 @@ public class NumeradorActivity extends AppCompatActivity {
                 txtFechaInicio.setText(c.getString(c.getColumnIndex(num.FECHA_INICIO)));
                 txtFechaFin.setText(c.getString(c.getColumnIndex(num.FECHA_FIN)));
                 txtCai.setText(c.getString(c.getColumnIndex(num.CAI)));
+                txtUltimo.setText(c.getString(c.getColumnIndex(num.ULTIMO_USADO)));
                 String chk = c.getString(c.getColumnIndex(num.ESTADO));
                 chkEstado.setChecked((chk.equals("1")?true:false));
             }
@@ -225,7 +216,9 @@ public class NumeradorActivity extends AppCompatActivity {
         final DatePickerDialog datepicture = new DatePickerDialog(NumeradorActivity.this , new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view , int year, int month, int dayOfMonth) {
-                String fecha = dayOfMonth + "-" +  (month + 1) + "-" + year;
+                String _month = ("00"+(month + 1));
+                String day = "00"+dayOfMonth;
+                String fecha = day.substring(day.length()-2,day.length()) + "/" + _month.substring(_month.length()-2,_month.length()) + "/" + year;
                 txtFechaInicio.setText(fecha);
             }
         }, year, month, day);
@@ -250,7 +243,9 @@ public class NumeradorActivity extends AppCompatActivity {
         final DatePickerDialog datepicture = new DatePickerDialog(NumeradorActivity.this , new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view , int year, int month, int dayOfMonth) {
-                String fecha = dayOfMonth + "-" +  (month + 1) + "-" + year;
+                String _month = ("00"+(month + 1));
+                String day = "00"+dayOfMonth;
+                String fecha = day.substring(day.length()-2,day.length()) + "/" + _month.substring(_month.length()-2,_month.length()) + "/" + year;
                 txtFechaFin.setText(fecha);
             }
         }, year, month, day);

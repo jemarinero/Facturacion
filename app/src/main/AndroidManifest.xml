@@ -61,7 +61,11 @@
         <activity
             android:name=".NumeradorActivity"
             android:label="@string/title_activity_numerador"
-            android:parentActivityName=".ListNumeradoresActivity"></activity>
+            android:parentActivityName=".ListNumeradoresActivity" />
+        <activity
+            android:name=".ListFacturacionActivity"
+            android:label="@string/title_activity_list_facturacion"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

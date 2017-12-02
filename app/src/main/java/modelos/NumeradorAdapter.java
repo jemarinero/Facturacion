@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by jemarinero on 1/12/2017.
  */
 
-public class NumeradorAdapter  extends ArrayAdapter<Numerador> {
+public class NumeradorAdapter extends ArrayAdapter<Numerador> {
 
     public NumeradorAdapter(Context context, ArrayList<Numerador> numerador) {
         super(context, 0, numerador);
