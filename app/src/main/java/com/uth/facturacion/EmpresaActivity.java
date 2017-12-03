@@ -23,6 +23,7 @@ public class EmpresaActivity extends AppCompatActivity  {
     EditText txtEmpresa;
     EditText txtDireccion;
     EditText txtTelefono;
+    EditText txtCorreo;
     EditText txtRtn;
     Button btnGuardar;
     Context context;
@@ -40,6 +41,7 @@ public class EmpresaActivity extends AppCompatActivity  {
         txtEmpresa = (EditText) findViewById(R.id.txtEmpresa);
         txtDireccion = (EditText) findViewById(R.id.txtDireccion);
         txtTelefono = (EditText) findViewById(R.id.txtTelefono);
+        txtCorreo = (EditText) findViewById(R.id.txtCorreo);
         txtRtn = (EditText) findViewById(R.id.txtRtn);
         getDataEmpresa();
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +53,7 @@ public class EmpresaActivity extends AppCompatActivity  {
                             txtEmpresa.getText().toString(),
                             txtDireccion.getText().toString(),
                             txtTelefono.getText().toString(),
+                            txtCorreo.getText().toString(),
                             txtRtn.getText().toString()
                     );
                 } else {
@@ -58,6 +61,7 @@ public class EmpresaActivity extends AppCompatActivity  {
                             txtEmpresa.getText().toString(),
                             txtDireccion.getText().toString(),
                             txtTelefono.getText().toString(),
+                            txtCorreo.getText().toString(),
                             txtRtn.getText().toString(),
                             helper.ID + "=?",
                             new String[]{Long.toString(id)}
@@ -90,6 +94,7 @@ public class EmpresaActivity extends AppCompatActivity  {
                 txtEmpresa.setText(c.getString(c.getColumnIndex(helper.NOMBRE)));
                 txtDireccion.setText(c.getString(c.getColumnIndex(helper.DIRECCION)));
                 txtTelefono.setText(c.getString(c.getColumnIndex(helper.TELEFONO)));
+                txtCorreo.setText(c.getString(c.getColumnIndex(helper.CORREO)));
                 txtRtn.setText(c.getString(c.getColumnIndex(helper.RTN)));
             }
         }

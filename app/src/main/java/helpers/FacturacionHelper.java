@@ -20,6 +20,8 @@ public class FacturacionHelper extends SQLiteOpenHelper {
     private Clientes clie = new Clientes();
     private Numeradores num = new Numeradores();
     private Servicios ser = new Servicios();
+    private RecibosEnc recEnc = new RecibosEnc();
+    private RecibosDet recDet = new RecibosDet();
 
     //constructor
     public FacturacionHelper(Context context) {
@@ -29,12 +31,13 @@ public class FacturacionHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         CreateTableConfiguracion(db);
         CreateTableEmpresa(db);
         CreateTableCliente(db);
         CreateTableNumerador(db);
         CreateTableServicios(db);
+        CreateTableRecibosEnc(db);
+        CreateTableRecibosDet(db);
     }
 
     @Override
@@ -43,7 +46,8 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         DropTableEmpresa(db);
         DropTableNumerador(db);
         DropTableServicios(db);
-
+        DropTableRecibosEnc(db);
+        DropTableRecibosDet(db);
         this.onCreate(db);
     }
 
@@ -107,7 +111,8 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                 empr.NOMBRE+" text null, "+
                 empr.DIRECCION+" text null, "+
                 empr.RTN+" text null, "+
-                empr.TELEFONO+" text null "+
+                empr.TELEFONO+" text null, "+
+                empr.CORREO+" text null "+
                 ")";
         db.execSQL(query);
     }
@@ -116,13 +121,14 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+empr.TABLE);
     }
 
-    public long insertEmpresa(String nombre, String direccion, String rtn, String telefono){
+    public long insertEmpresa(String nombre, String direccion, String telefono,String correo, String rtn){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(empr.NOMBRE, nombre);
         values.put(empr.DIRECCION, direccion);
         values.put(empr.RTN, rtn);
         values.put(empr.TELEFONO, telefono);
+        values.put(empr.CORREO, correo);
         return db.insert(empr.TABLE, null, values);
     }
     public int deleteAllEmpresa(){
@@ -132,20 +138,20 @@ public class FacturacionHelper extends SQLiteOpenHelper {
 
     public Cursor selectAllEmpresa(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] cols = new String[] {empr.ID,empr.NOMBRE, empr.DIRECCION,empr.RTN,empr.TELEFONO};
+        String[] cols = new String[] {empr.ID,empr.NOMBRE, empr.DIRECCION,empr.RTN,empr.TELEFONO,empr.CORREO};
         Cursor mCursor = db.query(true, empr.TABLE,cols,null
                 , null, null, null, null, null);
         return mCursor; // iterate to get each value.
     }
 
-    public long updateEmpresa(String nombre, String direccion, String rtn, String telefono,String where, String[] params){
+    public long updateEmpresa(String nombre, String direccion, String telefono,String correo, String rtn,String where, String[] params){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(empr.NOMBRE, nombre);
         values.put(empr.DIRECCION, direccion);
         values.put(empr.RTN, rtn);
         values.put(empr.TELEFONO, telefono);
-
+        values.put(empr.CORREO, correo);
         return db.update(empr.TABLE,values,where,params);
 
     }
@@ -318,6 +324,138 @@ public class FacturacionHelper extends SQLiteOpenHelper {
     }
 
     //=================================================
+    //Encabezado Recibos
+    //=================================================
+
+    public void CreateTableRecibosEnc(SQLiteDatabase db){
+        String query = "create table "+recEnc.TABLE +"( "+
+                recEnc.ID+" integer primary key AUTOINCREMENT, "+
+                recEnc.NO_RECIBO+" integer null, "+
+                recEnc.FECHA+" text null, "+
+                recEnc.CAI+" text null, "+
+                recEnc.CLIENTE+" integer null, "+
+                recEnc.ESTADO+" integer null "+
+                ")";
+        db.execSQL(query);
+    }
+    public void DropTableRecibosEnc(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS "+recEnc.TABLE);
+    }
+
+    public long insertReciboEnc(String noRecibo, String fecha, String cai,String cliente,String estado){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(recEnc.NO_RECIBO, noRecibo);
+        values.put(recEnc.FECHA, fecha);
+        values.put(recEnc.CAI, cai);
+        values.put(recEnc.CLIENTE, cliente);
+        values.put(recEnc.ESTADO, estado);
+        return db.insert(recEnc.TABLE, null, values);
+    }
+
+
+    public Cursor selectAllRecibosEnc(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String MY_QUERY = "SELECT a."+recEnc.ID+",a."
+                                     +recEnc.NO_RECIBO+", a."
+                                     +recEnc.CLIENTE+",b."
+                                     +clie.NOMBRE+",a."
+                                     +recEnc.FECHA+",a."
+                                     +recEnc.CAI+",a."
+                                     +recEnc.ESTADO+", sum(c."
+                                     +recDet.TOTAL+") MONTO_TOTAL"
+                            +" FROM "+recEnc.TABLE + " a"
+                            +" INNER JOIN "+clie.TABLE +" b ON a."
+                                     +recEnc.CLIENTE+"=b."+clie.ID
+                            +" INNER JOIN "+recDet.TABLE +" c ON a."
+                                     +recEnc.ID+"=c."+recDet.ID_RECIBO
+                            +" group by a."+recEnc.ID+",a."
+                                           +recEnc.NO_RECIBO+", a."
+                                           +recEnc.CLIENTE+",b."
+                                           +clie.NOMBRE+",a."
+                                           +recEnc.FECHA+",a."
+                                           +recEnc.CAI+",a."
+                                           +recEnc.ESTADO;
+
+        Cursor mCursor = db.rawQuery(MY_QUERY, null);
+        return mCursor; // iterate to get each value.
+    }
+
+    public Cursor selectReciboEnc(String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] cols = new String[] {recEnc.ID,recEnc.NO_RECIBO, recEnc.FECHA,recEnc.CAI,recEnc.CLIENTE,recEnc.ESTADO};
+        Cursor mCursor = db.query(true,recEnc.TABLE,cols,where
+                , params, null, null, null, null);
+        return mCursor; // iterate to get each value.
+    }
+
+    public long updateReciboEncEstado(String estado,String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(recEnc.ESTADO, estado);
+
+        return db.update(recEnc.TABLE,values,where,params);
+
+    }
+    //=================================================
+    //Detalle Recibos
+    //=================================================
+
+    public void CreateTableRecibosDet(SQLiteDatabase db){
+        String query = "create table "+recDet.TABLE +"( "+
+                recDet.ID+" integer primary key AUTOINCREMENT, "+
+                recDet.ID_RECIBO+" integer null, "+
+                recDet.ID_SERVICIO+" integer null, "+
+                recDet.CANTIDAD+" real null, "+
+                recDet.PRECIO+" real null, "+
+                recDet.TOTAL+" real null "+
+                ")";
+        db.execSQL(query);
+    }
+    public void DropTableRecibosDet(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS "+recDet.TABLE);
+    }
+
+    public long insertReciboDet(String idRecibo, String idServicio, String cantidad,String precio, String total){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(recDet.ID_RECIBO, idRecibo);
+        values.put(recDet.ID_SERVICIO, idServicio);
+        values.put(recDet.CANTIDAD, cantidad);
+        values.put(recDet.PRECIO, precio);
+        values.put(recDet.TOTAL, total);
+        return db.insert(recDet.TABLE, null, values);
+    }
+    public int deleteAllRecibosDet(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(recDet.TABLE,null,null);
+    }
+
+    public int deleteReciboDet(String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(recDet.TABLE,where,params);
+    }
+
+
+    public Cursor selectReciboDet(String idRecibo){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String MY_QUERY = "SELECT a."+recDet.ID
+                               +", a."+recDet.ID_RECIBO
+                               +", a."+recDet.ID_SERVICIO
+                               +", b."+ser.NOMBRE
+                               +", a."+recDet.CANTIDAD
+                               +", a."+recDet.PRECIO
+                               +", a."+recDet.TOTAL
+                      +" FROM "+recDet.TABLE
+                      +" a INNER JOIN "+ser.TABLE+" b ON a."
+                               +ser.ID+"=b."+recDet.ID_SERVICIO
+                      +" WHERE a."+recDet.ID_RECIBO+"=?";
+
+        Cursor mCursor = db.rawQuery(MY_QUERY, new String[]{String.valueOf(idRecibo)});
+        return mCursor; // iterate to get each value.
+    }
+
+    //=================================================
     //Servicios
     //=================================================
 
@@ -378,5 +516,5 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         return db.update(clie.TABLE,values,where,params);
 
     }
-    
+
 }

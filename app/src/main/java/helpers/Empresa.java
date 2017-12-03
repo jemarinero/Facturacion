@@ -17,12 +17,6 @@ public class Empresa {
     public static final String DIRECCION = "Direccion";
     public static final String RTN = "RTN";
     public static final String TELEFONO = "Telefono";
-
-
-    public Empresa() {
-
-    }
-
-
+    public static final String CORREO = "Correo";
 
 }
