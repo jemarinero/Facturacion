@@ -14,4 +14,9 @@ public class Cliente {
         this.TELEFONO = telefono;
         this.ID = id;
     }
+
+    public String toString()
+    {
+        return( this.NOMBRE);
+    }
 }

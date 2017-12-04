@@ -11,5 +11,6 @@ public class RecibosDet {
     public static final String ID_SERVICIO = "IdServicio";
     public static final String CANTIDAD = "Cantidad";
     public static final String PRECIO = "Precio";
+    public static final String IMPUESTO = "Impuesto";
     public static final String TOTAL = "Total";
 }

@@ -12,4 +12,6 @@ public class RecibosEnc {
     public static final String CAI = "CAI";
     public static final String CLIENTE = "Cliente";
     public static final String ESTADO = "Estados";
+    public static final String LATITUD = "Latitud";
+    public static final String LONGITUD = "Longitud";
 }

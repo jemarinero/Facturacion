@@ -66,6 +66,10 @@
             android:name=".ListFacturacionActivity"
             android:label="@string/title_activity_list_facturacion"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ReciboDetalleActivity"
+            android:label="@string/title_activity_recibo_detalle"
+            android:parentActivityName=".ListFacturacionActivity" ></activity>
     </application>
 
 </manifest>

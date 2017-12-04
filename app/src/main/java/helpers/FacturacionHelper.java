@@ -322,7 +322,14 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         return db.update(num.TABLE,values,where,params);
 
     }
+    public long updateNumeradorUltimo(String ultimo,String where, String[] params){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(num.ULTIMO_USADO, ultimo);
 
+        return db.update(num.TABLE,values,where,params);
+
+    }
     //=================================================
     //Encabezado Recibos
     //=================================================
@@ -334,7 +341,9 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                 recEnc.FECHA+" text null, "+
                 recEnc.CAI+" text null, "+
                 recEnc.CLIENTE+" integer null, "+
-                recEnc.ESTADO+" integer null "+
+                recEnc.ESTADO+" integer null, "+
+                recEnc.LATITUD+" text null, "+
+                recEnc.LONGITUD+" text null "+
                 ")";
         db.execSQL(query);
     }
@@ -342,7 +351,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+recEnc.TABLE);
     }
 
-    public long insertReciboEnc(String noRecibo, String fecha, String cai,String cliente,String estado){
+    public long insertReciboEnc(String noRecibo, String fecha, String cai,String cliente,String estado,String latitud, String longitud){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(recEnc.NO_RECIBO, noRecibo);
@@ -350,6 +359,8 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         values.put(recEnc.CAI, cai);
         values.put(recEnc.CLIENTE, cliente);
         values.put(recEnc.ESTADO, estado);
+        values.put(recEnc.LATITUD, latitud);
+        values.put(recEnc.LONGITUD, longitud);
         return db.insert(recEnc.TABLE, null, values);
     }
 
@@ -362,12 +373,14 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                                      +clie.NOMBRE+",a."
                                      +recEnc.FECHA+",a."
                                      +recEnc.CAI+",a."
-                                     +recEnc.ESTADO+", sum(c."
-                                     +recDet.TOTAL+") MONTO_TOTAL"
+                                     +recEnc.ESTADO+", ifnull(sum(c."
+                                     +recDet.TOTAL+"),0) MONTO_TOTAL ,a."
+                                     +recEnc.LATITUD + ",a."
+                                     +recEnc.LONGITUD
                             +" FROM "+recEnc.TABLE + " a"
                             +" INNER JOIN "+clie.TABLE +" b ON a."
                                      +recEnc.CLIENTE+"=b."+clie.ID
-                            +" INNER JOIN "+recDet.TABLE +" c ON a."
+                            +" left JOIN "+recDet.TABLE +" c ON a."
                                      +recEnc.ID+"=c."+recDet.ID_RECIBO
                             +" group by a."+recEnc.ID+",a."
                                            +recEnc.NO_RECIBO+", a."
@@ -375,7 +388,9 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                                            +clie.NOMBRE+",a."
                                            +recEnc.FECHA+",a."
                                            +recEnc.CAI+",a."
-                                           +recEnc.ESTADO;
+                                           +recEnc.ESTADO+",a."
+                                           +recEnc.LATITUD+",a."
+                                           +recEnc.LONGITUD;
 
         Cursor mCursor = db.rawQuery(MY_QUERY, null);
         return mCursor; // iterate to get each value.
@@ -383,7 +398,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
 
     public Cursor selectReciboEnc(String where, String[] params){
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] cols = new String[] {recEnc.ID,recEnc.NO_RECIBO, recEnc.FECHA,recEnc.CAI,recEnc.CLIENTE,recEnc.ESTADO};
+        String[] cols = new String[] {recEnc.ID,recEnc.NO_RECIBO, recEnc.FECHA,recEnc.CAI,recEnc.CLIENTE,recEnc.ESTADO,recEnc.LATITUD, recEnc.LONGITUD};
         Cursor mCursor = db.query(true,recEnc.TABLE,cols,where
                 , params, null, null, null, null);
         return mCursor; // iterate to get each value.
@@ -408,6 +423,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                 recDet.ID_SERVICIO+" integer null, "+
                 recDet.CANTIDAD+" real null, "+
                 recDet.PRECIO+" real null, "+
+                recDet.IMPUESTO+" real null, "+
                 recDet.TOTAL+" real null "+
                 ")";
         db.execSQL(query);
@@ -416,13 +432,14 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+recDet.TABLE);
     }
 
-    public long insertReciboDet(String idRecibo, String idServicio, String cantidad,String precio, String total){
+    public long insertReciboDet(String idRecibo, String idServicio, String cantidad,String precio,String impuesto, String total){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(recDet.ID_RECIBO, idRecibo);
         values.put(recDet.ID_SERVICIO, idServicio);
         values.put(recDet.CANTIDAD, cantidad);
         values.put(recDet.PRECIO, precio);
+        values.put(recDet.IMPUESTO, impuesto);
         values.put(recDet.TOTAL, total);
         return db.insert(recDet.TABLE, null, values);
     }
@@ -445,10 +462,11 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                                +", b."+ser.NOMBRE
                                +", a."+recDet.CANTIDAD
                                +", a."+recDet.PRECIO
+                               +", a."+recDet.IMPUESTO
                                +", a."+recDet.TOTAL
                       +" FROM "+recDet.TABLE
-                      +" a INNER JOIN "+ser.TABLE+" b ON a."
-                               +ser.ID+"=b."+recDet.ID_SERVICIO
+                      +" a INNER JOIN "+ser.TABLE+" b ON b."
+                               +ser.ID+"=a."+recDet.ID_SERVICIO
                       +" WHERE a."+recDet.ID_RECIBO+"=?";
 
         Cursor mCursor = db.rawQuery(MY_QUERY, new String[]{String.valueOf(idRecibo)});
