@@ -37,6 +37,9 @@ public class ServicioAdapter extends ArrayAdapter<Servicio> {
 
         TextView tvId = (TextView) convertView.findViewById(R.id.idServicio);
         tvId.setText(cliente.ID);
+
+        TextView tvImpuesto = (TextView) convertView.findViewById(R.id.tvImpuesto);
+        tvImpuesto.setText(cliente.IMPUESTO);
         return convertView;
     }
 }

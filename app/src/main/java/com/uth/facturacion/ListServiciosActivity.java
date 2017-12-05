@@ -80,7 +80,8 @@ public class ListServiciosActivity extends AppCompatActivity {
                     adapter.add(new Servicio(
                             c.getString(c.getColumnIndex(servicio.NOMBRE)),
                             "Precio: "+c.getString(c.getColumnIndex(servicio.PRECIO)),
-                            c.getString(c.getColumnIndex(servicio.ID))));
+                            c.getString(c.getColumnIndex(servicio.ID)),
+                            c.getString(c.getColumnIndex(servicio.IMPUESTO))));
                 }
             }
         }

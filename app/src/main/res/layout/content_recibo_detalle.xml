@@ -59,19 +59,45 @@
         app:srcCompat="@android:drawable/ic_menu_add"
         android:layout_marginEnd="24dp" />
 
-
     <ImageButton
-        android:id="@+id/btnAnular"
+        android:id="@+id/btnAplicar"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/button"
         android:text="Anular"
         android:textColor="@android:color/background_light"
         app:layout_constraintRight_toLeftOf="@+id/btnAdd"
         app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
+        app:srcCompat="@drawable/ic_check" />
+
+    <ImageButton
+        android:id="@+id/btnEnviar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button"
+        android:text="Anular"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintRight_toLeftOf="@+id/btnAplicar"
+        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <ImageButton
+        android:id="@+id/btnAnular"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_red"
+        android:text="Anular"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintRight_toLeftOf="@+id/btnEnviar"
+        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
         app:srcCompat="@drawable/ic_error_outline"
         android:layout_marginEnd="8dp" />
+
 
     <ListView
         android:id="@+id/listRecibosDet"

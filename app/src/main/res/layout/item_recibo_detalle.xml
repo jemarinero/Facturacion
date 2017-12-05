@@ -1,40 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:stretchColumns="*">
 
     <TableRow>
-        <TextView
-            android:id="@+id/tvServicio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/listtext"
-            android:text="Servicio"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvCantidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cant."
-            android:textSize="12sp" />
+        <LinearLayout
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvServicio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicio"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvServicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:text="Servicio"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvCantidad1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cant."
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cant."
+                android:background="@android:drawable/editbox_background"
+                android:gravity="right"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tvPrecio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precio"
-            android:textSize="12sp" />
-        <TextView
-            android:id="@+id/tvImpuesto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp" />
-        <TextView
-            android:id="@+id/tvMonto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monto"
-            android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvPrecio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio"
+                android:gravity="right"
+                android:background="@android:drawable/editbox_background"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvImpuesto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Impuesto"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvImpuesto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Impuesto"
+                android:gravity="right"
+                android:background="@android:drawable/editbox_background"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvMonto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monto"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvMonto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monto"
+                android:gravity="right"
+                android:background="@android:drawable/editbox_background"
+                android:textSize="12sp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/idReciboDet"
             android:layout_width="wrap_content"
