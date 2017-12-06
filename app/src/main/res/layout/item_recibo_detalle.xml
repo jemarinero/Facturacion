@@ -16,8 +16,8 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvServicio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 android:background="@android:drawable/editbox_background"
                 android:text="Servicio"
                 android:textSize="12sp" />
@@ -32,8 +32,8 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvCantidad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
                 android:text="Cant."
                 android:background="@android:drawable/editbox_background"
                 android:gravity="right"
@@ -50,8 +50,8 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvPrecio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
                 android:text="Precio"
                 android:gravity="right"
                 android:background="@android:drawable/editbox_background"
@@ -67,8 +67,8 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvImpuesto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
                 android:text="Impuesto"
                 android:gravity="right"
                 android:background="@android:drawable/editbox_background"
@@ -84,8 +84,8 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/tvMonto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
                 android:text="Monto"
                 android:gravity="right"
                 android:background="@android:drawable/editbox_background"

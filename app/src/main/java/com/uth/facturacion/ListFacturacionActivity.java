@@ -223,11 +223,22 @@ public class ListFacturacionActivity extends AppCompatActivity {
         {
             if (c != null && c.getCount() > 0) {
                 while (c.moveToNext()) {
+                    String estado = "NA";
+
+                    if(c.getString(c.getColumnIndex("Estados")).equals("1")){
+                        estado = "En Proceso";
+                    } else if (c.getString(c.getColumnIndex("Estados")).equals("2")){
+                        estado = "Aplicado";
+                    } else if (c.getString(c.getColumnIndex("Estados")).equals("3")){
+                        estado = "Anulado";
+                    }
+
                     adapter.add(new Recibo(
                             "No. Recibo: "+c.getString(c.getColumnIndex(recEnc.NO_RECIBO)),
                             "Cliente: "+c.getString(c.getColumnIndex(cliente.NOMBRE)),
                             "Monto: "+c.getString(c.getColumnIndex("MONTO_TOTAL")),
-                            c.getString(c.getColumnIndex(recEnc.ID))));
+                            c.getString(c.getColumnIndex(recEnc.ID)),
+                            "Estado: "+estado));
                 }
             }
         }
@@ -243,6 +254,25 @@ public class ListFacturacionActivity extends AppCompatActivity {
         {
             adapter.clear();
             getData();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    Toast.makeText(ListFacturacionActivity.this, "Se otorgaron los permisos", Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(ListFacturacionActivity.this, "Se negaron los permisos", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

@@ -87,7 +87,7 @@ public class NumeradorActivity extends AppCompatActivity {
                             txtFechaInicio.getText().toString(),
                             txtFechaFin.getText().toString(),
                             txtCai.getText().toString(),
-                            txtUltimo.getText().toString(),
+                            (txtUltimo.getText().toString().isEmpty()) ? "0" : txtUltimo.getText().toString(),
                             (chkEstado.isChecked() ? "1" : "0"),
                             "_id=?",
                             params
@@ -109,7 +109,7 @@ public class NumeradorActivity extends AppCompatActivity {
                             txtFechaInicio.getText().toString(),
                             txtFechaFin.getText().toString(),
                             txtCai.getText().toString(),
-                            txtUltimo.getText().toString(),
+                            (txtUltimo.getText().toString().isEmpty()) ? "0" : txtUltimo.getText().toString(),
                             (chkEstado.isChecked() ? "1" : "0")
                     );
 

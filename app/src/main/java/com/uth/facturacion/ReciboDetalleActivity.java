@@ -57,6 +57,7 @@ public class ReciboDetalleActivity extends AppCompatActivity {
     Long idRecibo = Long.valueOf(0);
     TextView tvNoRecibo;
     TextView tvCliente;
+    TextView tvEstado;
     FacturacionHelper helperFacturacion;
     Clientes cliente;
     RecibosEnc recEnc;
@@ -84,6 +85,7 @@ public class ReciboDetalleActivity extends AppCompatActivity {
         }
         tvNoRecibo = (TextView) findViewById(R.id.tvNoRecibo);
         tvCliente = (TextView) findViewById(R.id.tvCliente);
+        tvEstado = (TextView) findViewById(R.id.tvEstado);
         btnAdd = (ImageButton) findViewById(R.id.btnAdd);
         btnAnular = (ImageButton) findViewById(R.id.btnAnular);
         btnAplicar = (ImageButton) findViewById(R.id.btnAplicar);
@@ -151,6 +153,7 @@ public class ReciboDetalleActivity extends AppCompatActivity {
                             helperFacturacion.updateReciboEncEstado("3","_id=?",params);
                             Toast.makeText(getApplicationContext(), "Recibo anulado existosamente", Toast.LENGTH_SHORT).show();
                             status = "3";
+                            setEstado();
                             adapter.clear();
                             getData();
                         }
@@ -187,6 +190,7 @@ public class ReciboDetalleActivity extends AppCompatActivity {
                             helperFacturacion.updateReciboEncEstado("2","_id=?",params);
                             Toast.makeText(getApplicationContext(), "Recibo aplicado existosamente", Toast.LENGTH_SHORT).show();
                             status = "2";
+                            setEstado();
                             adapter.clear();
                             getData();
                         }
@@ -274,6 +278,8 @@ public class ReciboDetalleActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        setEstado();
     }
 
     private void getRecibo(){
@@ -331,6 +337,20 @@ public class ReciboDetalleActivity extends AppCompatActivity {
         finally {
             c.close();
         }
+    }
+
+    private void setEstado(){
+        String estado = "NA";
+
+        if(status.equals("1")){
+            estado = "En Proceso";
+        } else if (status.equals("2")){
+            estado = "Aplicado";
+        } else if (status.equals("3")){
+            estado = "Anulado";
+        }
+
+        tvEstado.setText(estado);
     }
 
 }

@@ -8,12 +8,14 @@ public class Recibo {
     public String NO_RECIBO;
     public String CLIENTE;
     public String MONTO;
+    public String ESTADO;
     public String ID;
 
-    public Recibo(String noRecibo, String cliente, String monto,String id) {
+    public Recibo(String noRecibo, String cliente, String monto,String id,String estado) {
         this.NO_RECIBO = noRecibo;
         this.CLIENTE = cliente;
         this.MONTO = monto;
+        this.ESTADO = estado;
         this.ID = id;
     }
 }

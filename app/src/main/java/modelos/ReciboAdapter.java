@@ -38,6 +38,9 @@ public class ReciboAdapter extends ArrayAdapter<Recibo> {
         TextView tvMonto = (TextView) convertView.findViewById(R.id.tvMonto);
         tvMonto.setText(num.MONTO);
 
+        TextView tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
+        tvEstado.setText(num.ESTADO);
+
         TextView tvId = (TextView) convertView.findViewById(R.id.idRecibo);
         tvId.setText(num.ID);
         return convertView;

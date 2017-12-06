@@ -61,7 +61,7 @@ public class ServicioActivity extends AppCompatActivity {
                     long rs = helperFacturacion.updateServicios(
                             txtNombreServicio.getText().toString(),
                             txtPrecio.getText().toString(),
-                            txtImpuesto.getText().toString(),
+                            (txtImpuesto.getText().toString().isEmpty()) ? "0" : txtImpuesto.getText().toString(),
                             "_id=?",
                             params
                     );
@@ -77,7 +77,7 @@ public class ServicioActivity extends AppCompatActivity {
                     long rs = helperFacturacion.insertServicios(
                             txtNombreServicio.getText().toString(),
                             txtPrecio.getText().toString(),
-                            txtImpuesto.getText().toString()
+                            (txtImpuesto.getText().toString().isEmpty()) ? "0" : txtImpuesto.getText().toString()
                     );
 
                     if(rs > 0){

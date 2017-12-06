@@ -376,7 +376,8 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                                      +recEnc.ESTADO+", ifnull(sum(c."
                                      +recDet.TOTAL+"),0) MONTO_TOTAL ,a."
                                      +recEnc.LATITUD + ",a."
-                                     +recEnc.LONGITUD
+                                     +recEnc.LONGITUD + ",a."
+                                     +recEnc.ESTADO
                             +" FROM "+recEnc.TABLE + " a"
                             +" INNER JOIN "+clie.TABLE +" b ON a."
                                      +recEnc.CLIENTE+"=b."+clie.ID
@@ -531,7 +532,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         values.put(ser.PRECIO, precio);
         values.put(ser.IMPUESTO, impuesto);
 
-        return db.update(clie.TABLE,values,where,params);
+        return db.update(ser.TABLE,values,where,params);
 
     }
 

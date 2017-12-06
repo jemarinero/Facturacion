@@ -12,52 +12,75 @@
         android:id="@+id/tvCliente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNoRecibo1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="No. Recibo: "
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCliente"
-        android:layout_marginStart="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCliente" />
 
     <TextView
         android:id="@+id/tvNoRecibo"
         android:layout_width="74dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/tvNoRecibo1"
-        app:layout_constraintTop_toBottomOf="@+id/tvCliente"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCliente" />
+
+    <TextView
+        android:id="@+id/tvEstado1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Estado: "
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo" />
+
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/tvEstado1"
+        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo" />
 
     <ImageButton
         android:id="@+id/btnAdd"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:background="@drawable/button"
         android:text="Agregar"
         android:textColor="@android:color/background_light"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:layout_marginEnd="24dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEstado"
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <ImageButton
         android:id="@+id/btnAplicar"
@@ -69,7 +92,7 @@
         android:text="Anular"
         android:textColor="@android:color/background_light"
         app:layout_constraintRight_toLeftOf="@+id/btnAdd"
-        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
+        app:layout_constraintTop_toBottomOf="@+id/tvEstado"
         app:srcCompat="@drawable/ic_check" />
 
     <ImageButton
@@ -82,34 +105,51 @@
         android:text="Anular"
         android:textColor="@android:color/background_light"
         app:layout_constraintRight_toLeftOf="@+id/btnAplicar"
-        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
+        app:layout_constraintTop_toBottomOf="@+id/tvEstado"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
     <ImageButton
         android:id="@+id/btnAnular"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/button_red"
         android:text="Anular"
         android:textColor="@android:color/background_light"
         app:layout_constraintRight_toLeftOf="@+id/btnEnviar"
-        app:layout_constraintTop_toBottomOf="@+id/tvNoRecibo"
-        app:srcCompat="@drawable/ic_error_outline"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEstado"
+        app:srcCompat="@drawable/ic_error_outline" />
 
-
-    <ListView
-        android:id="@+id/listRecibosDet"
+    <HorizontalScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:listSelector="@drawable/list_selector"
-        app:layout_constraintTop_toBottomOf="@+id/btnAnular"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/btnAnular"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <ListView
+            android:id="@+id/listRecibosDet"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:listSelector="@drawable/list_selector"
+            android:scrollbars="horizontal|vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAnular"></ListView>
+
+    </HorizontalScrollView>
 
 </android.support.constraint.ConstraintLayout>
