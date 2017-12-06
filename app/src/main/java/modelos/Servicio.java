@@ -5,10 +5,11 @@ package modelos;
  */
 
 public class Servicio {
+    public String ID;
     public String NOMBRE;
     public String PRECIO;
     public String IMPUESTO;
-    public String ID;
+
 
     public Servicio(String nombre, String precio,String id,String impuesto) {
         this.NOMBRE = nombre;

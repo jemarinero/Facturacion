@@ -36,7 +36,7 @@ public class NumeradorAdapter extends ArrayAdapter<Numerador> {
         tvSerie.setText(num.SERIE);
 
         TextView tvUltimo = (TextView) convertView.findViewById(R.id.tvUltimo);
-        tvUltimo.setText(num.ULTIMO);
+        tvUltimo.setText(num.ULTIMO_USADO);
 
         TextView tvId = (TextView) convertView.findViewById(R.id.idNumerador);
         tvId.setText(num.ID);

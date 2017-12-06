@@ -30,7 +30,7 @@ public class ReciboDetAdapter extends ArrayAdapter<ReciboDet> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_recibo_detalle, parent, false);
         }
         TextView tvServicio = (TextView) convertView.findViewById(R.id.tvServicio);
-        tvServicio.setText(num.SERVICIO);
+        tvServicio.setText(num.ID_SERVICIO);
 
         TextView tvCantidad = (TextView) convertView.findViewById(R.id.tvCantidad);
         tvCantidad.setText(num.CANTIDAD);
@@ -42,7 +42,7 @@ public class ReciboDetAdapter extends ArrayAdapter<ReciboDet> {
         tvImpuesto.setText(num.IMPUESTO);
 
         TextView tvMonto = (TextView) convertView.findViewById(R.id.tvMonto);
-        tvMonto.setText(num.MONTO);
+        tvMonto.setText(num.TOTAL);
 
         TextView tvId = (TextView) convertView.findViewById(R.id.idReciboDet);
         tvId.setText(num.ID);

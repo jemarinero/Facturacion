@@ -474,6 +474,14 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         return mCursor; // iterate to get each value.
     }
 
+    public Cursor selectAllRecibosDet(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] cols = new String[] {recDet.ID,recDet.ID_RECIBO, recDet.ID_SERVICIO,recDet.CANTIDAD,recDet.PRECIO,recDet.IMPUESTO,recDet.TOTAL};
+        Cursor mCursor = db.query(true, recDet.TABLE,cols,null
+                , null, null, null, null, null);
+        return mCursor; // iterate to get each value.
+    }
+
     //=================================================
     //Servicios
     //=================================================

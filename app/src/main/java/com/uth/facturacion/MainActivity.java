@@ -1,12 +1,11 @@
 package com.uth.facturacion;
 
-import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,14 +15,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Calendar;
 
+import helpers.AsyncTaskPost;
+import helpers.Clientes;
 import helpers.Configuracion;
+import helpers.Numeradores;
+import helpers.RecibosEnc;
+import modelos.Empresa;
 import helpers.FacturacionHelper;
 import io.github.skyhacker2.sqliteonweb.SQLiteOnWeb;
+import modelos.Cliente;
+import modelos.Numerador;
+import modelos.Recibo;
+import modelos.ReciboDet;
+import modelos.Servicio;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +42,14 @@ public class MainActivity extends AppCompatActivity
     FacturacionHelper helperFacturacion;
     Configuracion config;
     TextView tvFecha;
+    String urlLista;
+    Clientes cliente;
+    helpers.Empresa empresa;
+    helpers.Servicios ser;
+    helpers.Numeradores nums;
+    helpers.RecibosEnc recEnc;
+    helpers.RecibosDet recDet;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +60,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        context = this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                PostDatos();
+
             }
         });
 
@@ -155,10 +175,229 @@ public class MainActivity extends AppCompatActivity
             if (c != null && c.getCount() > 0) {
                 c.moveToFirst();
                 tvFecha.setText(c.getString(c.getColumnIndex(config.FECHA_TRABAJO)));
+                urlLista = c.getString(c.getColumnIndex(config.URL_SERVIDOR));
             }
         }
         finally {
             c.close();
         }
     }
+
+    private void PostDatos(){
+        SyncClientes();
+        SyncEmpresa();
+        SyncServicio();
+        SyncNumeradores();
+        SyncRecibosEnc();
+        SyncRecibosDet();
+
+        Toast.makeText(context,"Proceso de sincronización finalizado", Toast.LENGTH_SHORT).show();
+    }
+
+    private void SyncClientes(){
+        Cursor c = helperFacturacion.selectAllCliente();
+        cliente = new Clientes();
+
+        String newUrl = urlLista+"/clientes";
+
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    Cliente clie = new Cliente(
+                            c.getString(c.getColumnIndex(cliente.ID)),
+                            c.getString(c.getColumnIndex(cliente.NOMBRE)),
+                            c.getString(c.getColumnIndex(cliente.DIRECCION)),
+                            c.getString(c.getColumnIndex(cliente.TELEFONO)),
+                            c.getString(c.getColumnIndex(cliente.CORREO)),
+                            c.getString(c.getColumnIndex(cliente.IDENTIDAD)),
+                            c.getString(c.getColumnIndex(cliente.RTN)),
+                            c.getString(c.getColumnIndex(cliente.LATITUD)),
+                            c.getString(c.getColumnIndex(cliente.LONGITUD)),
+                            c.getString(c.getColumnIndex(cliente.EXENTO_IMPUESTO)).equals("1") ? "true" : "false"
+                            );
+                    ObjectMapper mapper = new ObjectMapper();
+                    String Json = mapper.writeValueAsString(clie);
+                    new AsyncTaskPost(newUrl,Json,context).execute();
+                }
+
+
+            }
+        } catch (Exception ex){
+
+        }
+        finally {
+            c.close();
+        }
+    }
+
+    private void SyncEmpresa(){
+        Cursor c = helperFacturacion.selectAllEmpresa();
+        empresa = new helpers.Empresa();
+
+        String newUrl = urlLista+"/empresas";
+
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    Empresa data = new Empresa(
+                            c.getString(c.getColumnIndex(empresa.ID)),
+                            c.getString(c.getColumnIndex(empresa.NOMBRE)),
+                            c.getString(c.getColumnIndex(empresa.DIRECCION)),
+                            c.getString(c.getColumnIndex(empresa.RTN)),
+                            c.getString(c.getColumnIndex(empresa.TELEFONO)),
+                            c.getString(c.getColumnIndex(empresa.CORREO))
+                    );
+                    ObjectMapper mapper = new ObjectMapper();
+                    String Json = mapper.writeValueAsString(data);
+                    new AsyncTaskPost(newUrl,Json,context).execute();
+                }
+
+
+            }
+        } catch (Exception ex){
+
+        }
+        finally {
+            c.close();
+        }
+    }
+
+    private void SyncServicio(){
+        Cursor c = helperFacturacion.selectAllServicios();
+        ser = new helpers.Servicios();
+
+        String newUrl = urlLista+"/servicios";
+
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    Servicio data = new Servicio(
+                            c.getString(c.getColumnIndex(ser.NOMBRE)),
+                            c.getString(c.getColumnIndex(ser.PRECIO)),
+                            c.getString(c.getColumnIndex(ser.ID)),
+                            c.getString(c.getColumnIndex(ser.IMPUESTO))
+                    );
+                    ObjectMapper mapper = new ObjectMapper();
+                    String Json = mapper.writeValueAsString(data);
+                    new AsyncTaskPost(newUrl,Json,context).execute();
+                }
+
+
+            }
+        } catch (Exception ex){
+
+        }
+        finally {
+            c.close();
+        }
+    }
+
+    private void SyncNumeradores(){
+        Cursor c = helperFacturacion.selectAllNumeradores();
+        nums = new Numeradores();
+
+        String newUrl = urlLista+"/numeradores";
+
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    Numerador clie = new Numerador(
+                            c.getString(c.getColumnIndex(nums.ID)),
+                            c.getString(c.getColumnIndex(nums.NUMERADOR)),
+                            c.getString(c.getColumnIndex(nums.SERIE)),
+                            c.getString(c.getColumnIndex(nums.NUMERO_INICIO)),
+                            c.getString(c.getColumnIndex(nums.NUMERO_FIN)),
+                            c.getString(c.getColumnIndex(nums.FECHA_INICIO)),
+                            c.getString(c.getColumnIndex(nums.FECHA_FIN)),
+                            c.getString(c.getColumnIndex(nums.CAI)),
+                            c.getString(c.getColumnIndex(nums.ULTIMO_USADO)),
+                            c.getString(c.getColumnIndex(nums.ESTADO)).equals("1") ? "true" : "false"
+                    );
+                    ObjectMapper mapper = new ObjectMapper();
+                    String Json = mapper.writeValueAsString(clie);
+                    new AsyncTaskPost(newUrl,Json,context).execute();
+                }
+
+
+            }
+        } catch (Exception ex){
+
+        }
+        finally {
+            c.close();
+        }
+    }
+
+    private void SyncRecibosEnc(){
+        Cursor c = helperFacturacion.selectAllRecibosEnc();
+        recEnc = new RecibosEnc();
+
+        String newUrl = urlLista+"/recibosencs";
+
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    Recibo clie = new Recibo(
+                            c.getString(c.getColumnIndex(recEnc.ID)),
+                            c.getString(c.getColumnIndex(recEnc.NO_RECIBO)),
+                            c.getString(c.getColumnIndex(recEnc.FECHA)),
+                            c.getString(c.getColumnIndex(recEnc.CAI)),
+                            c.getString(c.getColumnIndex(recEnc.CLIENTE)),
+                            c.getString(c.getColumnIndex(recEnc.ESTADO)),
+                            c.getString(c.getColumnIndex(recEnc.LATITUD)),
+                            c.getString(c.getColumnIndex(recEnc.LONGITUD))
+                    );
+                    ObjectMapper mapper = new ObjectMapper();
+                    String Json = mapper.writeValueAsString(clie);
+                    new AsyncTaskPost(newUrl,Json,context).execute();
+                }
+
+
+            }
+        } catch (Exception ex){
+
+        }
+        finally {
+            c.close();
+        }
+    }
+    private void SyncRecibosDet(){
+        Cursor c = helperFacturacion.selectAllRecibosDet();
+        recDet = new helpers.RecibosDet();
+
+        String newUrl = urlLista+"/recibosdets";
+
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    ReciboDet clie = new ReciboDet(
+                            c.getString(c.getColumnIndex(recDet.ID)),
+                            c.getString(c.getColumnIndex(recDet.ID_RECIBO)),
+                            c.getString(c.getColumnIndex(recDet.ID_SERVICIO)),
+                            c.getString(c.getColumnIndex(recDet.CANTIDAD)),
+                            c.getString(c.getColumnIndex(recDet.PRECIO)),
+                            c.getString(c.getColumnIndex(recDet.IMPUESTO)),
+                            c.getString(c.getColumnIndex(recDet.TOTAL))
+                    );
+                    ObjectMapper mapper = new ObjectMapper();
+                    String Json = mapper.writeValueAsString(clie);
+                    new AsyncTaskPost(newUrl,Json,context).execute();
+                }
+
+
+            }
+        } catch (Exception ex){
+
+        }
+        finally {
+            c.close();
+        }
+    }
+
 }

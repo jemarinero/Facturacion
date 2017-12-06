@@ -5,11 +5,15 @@ package modelos;
  */
 
 public class Recibo {
-    public String NO_RECIBO;
-    public String CLIENTE;
-    public String MONTO;
-    public String ESTADO;
     public String ID;
+    public String NO_RECIBO;
+    public String FECHA;
+    public String CAI;
+    public String CLIENTE;
+    public String ESTADO;
+    public String LATITUD;
+    public String LONGITUD;
+    public String MONTO;
 
     public Recibo(String noRecibo, String cliente, String monto,String id,String estado) {
         this.NO_RECIBO = noRecibo;
@@ -17,5 +21,16 @@ public class Recibo {
         this.MONTO = monto;
         this.ESTADO = estado;
         this.ID = id;
+    }
+
+    public Recibo(String ID, String NO_RECIBO, String FECHA, String CAI, String CLIENTE, String ESTADO, String LATITUD, String LONGITUD) {
+        this.ID = ID;
+        this.NO_RECIBO = NO_RECIBO;
+        this.FECHA = FECHA;
+        this.CAI = CAI;
+        this.CLIENTE = CLIENTE;
+        this.ESTADO = ESTADO;
+        this.LATITUD = LATITUD;
+        this.LONGITUD = LONGITUD;
     }
 }
