@@ -397,6 +397,52 @@ public class FacturacionHelper extends SQLiteOpenHelper {
         return mCursor; // iterate to get each value.
     }
 
+    public Cursor selectAllRecibosEncByDate(String fecha){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String MY_QUERY = "SELECT a."+recEnc.ID+",a."
+                +recEnc.NO_RECIBO+", a."
+                +recEnc.CLIENTE+",b."
+                +clie.NOMBRE+",a."
+                +recEnc.FECHA+",a."
+                +recEnc.CAI+",a."
+                +recEnc.ESTADO+", ifnull(sum(c."
+                +recDet.TOTAL+"),0) MONTO_TOTAL ,a."
+                +recEnc.LATITUD + ",a."
+                +recEnc.LONGITUD + ",a."
+                +recEnc.ESTADO
+                +" FROM "+recEnc.TABLE + " a"
+                +" INNER JOIN "+clie.TABLE +" b ON a."
+                +recEnc.CLIENTE+"=b."+clie.ID
+                +" and a."+recEnc.FECHA +" = '"+fecha+"'"
+                +" left JOIN "+recDet.TABLE +" c ON a."
+                +recEnc.ID+"=c."+recDet.ID_RECIBO
+                +" group by a."+recEnc.ID+",a."
+                +recEnc.NO_RECIBO+", a."
+                +recEnc.CLIENTE+",b."
+                +clie.NOMBRE+",a."
+                +recEnc.FECHA+",a."
+                +recEnc.CAI+",a."
+                +recEnc.ESTADO+",a."
+                +recEnc.LATITUD+",a."
+                +recEnc.LONGITUD;
+
+        Cursor mCursor = db.rawQuery(MY_QUERY, null);
+        return mCursor; // iterate to get each value.
+    }
+    public Cursor selectSumRecibosEncByDate(String fecha){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String MY_QUERY = "SELECT ifnull(sum(c."
+                +recDet.TOTAL+"),0) MONTO_TOTAL "
+                +" FROM "+recEnc.TABLE + " a"
+                +" INNER JOIN "+clie.TABLE +" b ON a."
+                +recEnc.CLIENTE+"=b."+clie.ID
+                +" and a."+recEnc.FECHA +" = '"+fecha+"'"
+                +" inner JOIN "+recDet.TABLE +" c ON a."
+                +recEnc.ID+"=c."+recDet.ID_RECIBO;
+
+        Cursor mCursor = db.rawQuery(MY_QUERY, null);
+        return mCursor; // iterate to get each value.
+    }
     public Cursor selectReciboEnc(String where, String[] params){
         SQLiteDatabase db = this.getWritableDatabase();
         String[] cols = new String[] {recEnc.ID,recEnc.NO_RECIBO, recEnc.FECHA,recEnc.CAI,recEnc.CLIENTE,recEnc.ESTADO,recEnc.LATITUD, recEnc.LONGITUD};

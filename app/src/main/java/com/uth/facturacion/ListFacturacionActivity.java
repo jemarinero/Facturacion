@@ -137,7 +137,7 @@ public class ListFacturacionActivity extends AppCompatActivity {
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.listRecibos);
         listView.setAdapter(adapter);
-        getData();
+        getData(txtFecha.getText().toString());
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -201,6 +201,8 @@ public class ListFacturacionActivity extends AppCompatActivity {
                 String day = "00"+dayOfMonth;
                 String fecha = day.substring(day.length()-2,day.length()) + "/" + _month.substring(_month.length()-2,_month.length()) + "/" + year;
                 txtFecha.setText(fecha);
+                adapter.clear();
+                getData(fecha);
             }
         }, year, month, day);
         datepicture.setTitle("Seleccione una fecha");
@@ -215,9 +217,9 @@ public class ListFacturacionActivity extends AppCompatActivity {
 
     }
 
-    private void getData()
+    private void getData(String _fecha)
     {
-        Cursor c = helperFacturacion.selectAllRecibosEnc();
+        Cursor c = helperFacturacion.selectAllRecibosEncByDate(_fecha);
 
         try
         {
@@ -253,7 +255,7 @@ public class ListFacturacionActivity extends AppCompatActivity {
         if(requestCode == 1 && resultCode==RESULT_OK)
         {
             adapter.clear();
-            getData();
+            getData(txtFecha.getText().toString());
         }
     }
 

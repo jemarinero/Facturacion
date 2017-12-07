@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     FacturacionHelper helperFacturacion;
     Configuracion config;
     TextView tvFecha;
+    TextView tvVenta;
     String urlLista;
     Clientes cliente;
     helpers.Empresa empresa;
@@ -81,8 +82,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         tvFecha = (TextView) findViewById(R.id.tvFechaTrabajo);
+        tvVenta = (TextView) findViewById(R.id.tvVenta);
 
         getData();
+        getVentaDia();
 
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -182,7 +185,21 @@ public class MainActivity extends AppCompatActivity
             c.close();
         }
     }
+    private void getVentaDia()
+    {
+        Cursor c = helperFacturacion.selectSumRecibosEncByDate(tvFecha.getText().toString());
 
+        try
+        {
+            if (c != null && c.getCount() > 0) {
+                c.moveToFirst();
+                tvVenta.setText(c.getString(c.getColumnIndex("MONTO_TOTAL")));
+            }
+        }
+        finally {
+            c.close();
+        }
+    }
     private void PostDatos(){
         SyncClientes();
         SyncEmpresa();
