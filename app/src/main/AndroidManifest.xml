@@ -4,9 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -18,7 +17,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
 
         <activity
             android:name=".MainActivity"
@@ -73,7 +71,15 @@
         <activity
             android:name=".ReciboDetalleActivity"
             android:label="@string/title_activity_recibo_detalle"
-            android:parentActivityName=".ListFacturacionActivity" ></activity>
+            android:parentActivityName=".ListFacturacionActivity" />
+        <activity
+            android:name=".MapRecibosActivity"
+            android:label="@string/title_activity_map_recibos"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MapListClientesActivity"
+            android:label="@string/title_activity_map_list_clientes"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

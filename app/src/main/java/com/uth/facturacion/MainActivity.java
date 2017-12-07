@@ -161,6 +161,12 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_recibos:       Intent recibo = new Intent(this,ListFacturacionActivity.class);
                                          startActivity(recibo);
                                          break;
+            case R.id.nav_ub_recibos:    Intent mapRecibo = new Intent(this,MapRecibosActivity.class);
+                                         startActivity(mapRecibo);
+                                         break;
+            case R.id.nav_ub_clientes:   Intent mapClie = new Intent(this,MapListClientesActivity.class);
+                                         startActivity(mapClie);
+                                         break;
                 default: break;
         }
 

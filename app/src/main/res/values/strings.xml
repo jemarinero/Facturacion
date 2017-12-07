@@ -18,4 +18,6 @@
     <string name="title_activity_numerador">Numerador</string>
     <string name="title_activity_list_facturacion">Recibos del Día</string>
     <string name="title_activity_recibo_detalle">Detalle de Recibo</string>
+    <string name="title_activity_map_recibos">Ubicación de Recibos</string>
+    <string name="title_activity_map_list_clientes">Ubicación de Clientes</string>
 </resources>
