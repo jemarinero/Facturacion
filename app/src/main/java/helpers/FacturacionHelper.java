@@ -436,6 +436,7 @@ public class FacturacionHelper extends SQLiteOpenHelper {
                 +" FROM "+recEnc.TABLE + " a"
                 +" INNER JOIN "+clie.TABLE +" b ON a."
                 +recEnc.CLIENTE+"=b."+clie.ID
+                +" and a."+recEnc.ESTADO +" = 2"
                 +" and a."+recEnc.FECHA +" = '"+fecha+"'"
                 +" inner JOIN "+recDet.TABLE +" c ON a."
                 +recEnc.ID+"=c."+recDet.ID_RECIBO;
