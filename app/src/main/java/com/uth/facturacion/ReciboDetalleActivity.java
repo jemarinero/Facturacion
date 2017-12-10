@@ -260,19 +260,19 @@ public class ReciboDetalleActivity extends AppCompatActivity {
                                     .append("CAI:              "+datosRecibo[1]+"\n")
                                     .append("Fecha de Emisión: "+datosRecibo[0]+"\n")
                                     .append("\n")
-                                    .append("Servicio                    Cant.    Precio   Imp.     Total    \n")
-                                    .append("----------------------------------------------------------------\n");
+                                    .append("Servicio                      Cant.      Precio     Imp.       Total      \n")
+                                    .append("--------------------------------------------------------------------------\n");
                             double total = 0.0;
                             for (ReciboDet rd : arrRecDet) {
-                                String servicio = (rd.ID_SERVICIO+"                            ").substring(0,28);
-                                String cant = "        "+String.format("%,.2f",Double.parseDouble(rd.CANTIDAD));
-                                cant = cant.substring(cant.length()-9, cant.length());
-                                String prec = "        "+String.format("%,.2f",Double.parseDouble(rd.PRECIO));
-                                prec = prec.substring(prec.length()-9, prec.length());
-                                String imp = "        "+String.format("%,.2f",Double.parseDouble(rd.IMPUESTO));
-                                imp = imp.substring(imp.length()-9, imp.length());
-                                String ttl = "        "+String.format("%,.2f",Double.parseDouble(rd.TOTAL));
-                                ttl = ttl.substring(ttl.length()-9, ttl.length());
+                                String servicio = (rd.ID_SERVICIO+"                              ").substring(0,30);
+                                String cant = "        "+String.format("%,.2f",Double.parseDouble(rd.CANTIDAD))+"  ";
+                                cant = cant.substring(cant.length()-11, cant.length());
+                                String prec = "        "+String.format("%,.2f",Double.parseDouble(rd.PRECIO))+"  ";
+                                prec = prec.substring(prec.length()-11, prec.length());
+                                String imp = "        "+String.format("%,.2f",Double.parseDouble(rd.IMPUESTO))+"  ";
+                                imp = imp.substring(imp.length()-11, imp.length());
+                                String ttl = "        "+String.format("%,.2f",Double.parseDouble(rd.TOTAL))+"  ";
+                                ttl = ttl.substring(ttl.length()-11, ttl.length());
                                 total+= Double.parseDouble(rd.TOTAL);
                                 sbRecibo.append(servicio+cant+prec+imp+ttl+"\n");
 
